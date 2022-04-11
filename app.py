@@ -37,3 +37,7 @@ mongo = PyMongo(app)
 @app.route('/index')
 def index():
     return render_template('index.html')
+
+@app.route('/<thread_number>')
+def thread(thread_number):
+    return render_template('thread.html')
