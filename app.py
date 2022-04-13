@@ -18,18 +18,26 @@ from flask import Flask
 from flask import render_template
 from flask import request, redirect
 from flask_pymongo import PyMongo
+import pymongo
+import certifi
 
 # -- Initialization section --
 app = Flask(__name__)
 
 # name of database
-app.config['MONGO_DBNAME'] = 'database'
+app.config['MONGO_DBNAME'] = 'unit4'
 
 # URI of database
-app.config['MONGO_URI'] = "<replace_with_real_mongodb_url>"
+app.config['MONGO_URI'] = "mongodb+srv://admin:3sAW1DQEaqpfDtqz@cluster0.ma4v1.mongodb.net/lab9database?retryWrites=true&w=majority"
 
 #Initialize PyMongo
 mongo = PyMongo(app)
+
+client = pymongo.MongoClient("mongodb+srv://admin:3sAW1DQEaqpfDtqz@cluster0.ma4v1.mongodb.net/lab9database?retryWrites=true&w=majority", tlsCAFile=certifi.where())
+db = client.unit4
+user = db.user
+comments = db.comments
+threads = db.thread
 
 # -- Routes section --
 # INDEX Route
@@ -38,6 +46,7 @@ mongo = PyMongo(app)
 def index():
     return render_template('index.html')
 
-@app.route('/<thread_number>')
+@app.route('/thread/<thread_number>')
 def thread(thread_number):
-    return render_template('thread.html')
+    thread_info = threads.find_one({"title": "Can someone help me with stacks"})
+    return render_template('thread.html', thread_info=thread_info)
