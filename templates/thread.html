@@ -6,22 +6,24 @@
 </head>
 <body>
     <h1>{{thread_info['title']}}</h1>
+    <h4>{{thread_info['author']}} {{thread_info['date_time']}}</h4>
     <p class="thread_content">{{thread_info['text']}}</p>
     <div class="all_comments">
         {% for comment in comments%}
         <div class="individual_comment">
-            comment
+            reply from: {{comment['author']}} <br>
+            {{comment['text']}} <br>
+            {{comment['date_time']}}<br>
+            <br>
         </div>
         {% endfor %}
     </div>
     <div class="new_comment">
-    <form action = '/thread/{{thread_info["id"]}}', method = 'POST'>
+    <form action = '/thread/{{thread_number}}', method = 'POST'>
         <input type="text" name='new_comment' placeholder="Add a new comment"/>
         <input type="submit" value="Submit">
     </form>
     </div>
-
-
 </body>
 
 </html>

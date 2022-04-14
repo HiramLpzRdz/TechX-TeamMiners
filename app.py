@@ -20,6 +20,8 @@ from flask import request, redirect
 from flask_pymongo import PyMongo
 import pymongo
 import certifi
+from bson import ObjectId
+from datetime import datetime
 
 # -- Initialization section --
 app = Flask(__name__)
@@ -39,6 +41,7 @@ user = db.user
 comments = db.comments
 threads = db.thread
 
+
 # -- Routes section --
 # INDEX Route
 @app.route('/')
@@ -46,7 +49,35 @@ threads = db.thread
 def index():
     return render_template('index.html')
 
-@app.route('/thread/<thread_number>')
+@app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):
-    thread_info = threads.find_one({"title": "Can someone help me with stacks"})
-    return render_template('thread.html', thread_info=thread_info)
+    if request.method == 'POST':
+        comment_info = {'text': request.form['new_comment'],
+                        'author': 'lenin_lover69',
+                        'date_time': datetime.now().strftime("%m/%d/%Y %H:%M"),
+                        'thread_id': thread_number}
+        comments.insert_one(comment_info)
+    thread_info = threads.find_one(ObjectId(thread_number))
+    #comment = comments.find_one(ObjectId("62572533e6569223cc720c62"))
+    comment = comments.find({"thread_id": thread_number})
+    return render_template('thread.html', thread_info=thread_info, comments=comment,
+                           thread_number=thread_number)
+
+@app.route('/new_thread', methods=['GET', 'POST'])
+def new_thread():
+    return render_template('new_thread.html')
+
+@app.route('/create_thread', methods=['GET', 'POST'])
+def create_thread():
+    if request.method == 'GET':
+        return 'wrong'
+    if request.method == 'POST':
+        thread_info = {
+            'title': request.form['title'],
+            'text': request.form['text'],
+            'author': 'fidel',
+            'date_time': datetime.now().strftime("%m/%d/%Y %H:%M")
+        }
+        _id = threads.insert_one(thread_info)
+        path = '/thread/' + str(_id.inserted_id)
+        return redirect(path)
