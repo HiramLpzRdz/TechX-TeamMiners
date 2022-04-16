@@ -70,14 +70,21 @@ def new_thread():
 @app.route('/create_thread', methods=['GET', 'POST'])
 def create_thread():
     if request.method == 'GET':
-        return 'wrong'
+        return 'you should not be here'
     if request.method == 'POST':
         thread_info = {
             'title': request.form['title'],
             'text': request.form['text'],
             'author': 'fidel',
-            'date_time': datetime.now().strftime("%m/%d/%Y %H:%M")
+            'date_time': datetime.now().strftime("%m/%d/%Y %H:%M"),
         }
+        vl = request.form['video_link']
+        if vl != '':
+            vl = vl.replace('watch?v=', 'embed/')
+            thread_info['video_link'] = vl
+        il = request.form['image_link']
+        if il != '':
+            thread_info['image_link'] = il
         _id = threads.insert_one(thread_info)
         path = '/thread/' + str(_id.inserted_id)
         return redirect(path)
