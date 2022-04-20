@@ -85,6 +85,9 @@ def create_thread():
         il = request.form['image_link']
         if il != '':
             thread_info['image_link'] = il
+        tags = request.form['tags']
+        if tags != '':
+            thread_info['tags'] = tags.split()
         _id = threads.insert_one(thread_info)
         path = '/thread/' + str(_id.inserted_id)
         return redirect(path)

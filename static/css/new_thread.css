@@ -1,0 +1,76 @@
+body {
+   background-color: rgb(220,220,220);
+}
+
+h1 {
+   margin-left: 40%;
+}
+
+.post_text{
+  width:50%;
+  resize: vertical;
+  padding:15px;
+  border-radius:15px;
+  border:0;
+  box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+  height: 150px;
+  margin-left: 25%;
+}
+
+input[type=text] {
+  padding:10px;
+  border:0;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  border-radius:10px;
+}
+
+input[name=title]{
+   margin-left: 25%;
+   margin-bottom:1%;
+   width: 35%
+}
+
+input[name=video_link]{
+   margin-left: 25%;
+
+}
+
+input[name=image_link]{
+   margin-left: 3%;
+}
+
+input[name=tags]{
+   margin-left: 25%;
+   margin-bottom: 1%;
+   width: 20%;
+}
+
+input[type=submit]{
+   display:inline-block;
+   padding:0.3em 1.2em;
+   margin-left: 7%;
+   border-radius:2em;
+   box-sizing: border-box;
+   text-decoration:none;
+   font-family:'Roboto',sans-serif;
+   font-weight:300;
+   color:#FFFFFF;
+   background-color:#4eb5f1;
+   text-align:center;
+   transition: all 0.2s;
+}
+
+input[type=submit]:hover{
+   background-color:#4095c6;
+}
+@media all and (max-width:30em) {
+   input[type=submit]{
+      display:inline-block;
+      margin:0.2em auto;
+   }
+}
+
+.below_input{
+   margin-top:2%;
+}
+

@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>threadify/{{thread_info['title']}}</title>
+    <link rel="stylesheet" href="../static/css/thread.css">
 </head>
 <body>
-    <h1>{{thread_info['title']}}</h1>
-    <h4>{{thread_info['author']}} {{thread_info['date_time']}}</h4>
-    <p class="thread_content">{{thread_info['text']}}</p>
-    {% if 'image_link' in thread_info %}
-    <img src={{thread_info['image_link']}} alt="thread_image" width="30%" height="30%" >
-    {% endif %}
-    {% if 'video_link' in thread_info %}
-        <iframe width="560" height="315" src="{{thread_info['video_link']}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    {% endif %}
+    <div class="post">
+        <h1>{{thread_info['title']}}</h1>
+        <h4>{{thread_info['author']}} {{thread_info['date_time']}}</h4>
+        <p class="thread_content">{{thread_info['text']}}</p>
+        {% if 'image_link' in thread_info %}
+        <img src={{thread_info['image_link']}} alt="thread_image" width="30%" height="30%" class="linked_image">
+        <br>
+        {% endif %}
+        {% if 'video_link' in thread_info %}
+            <iframe width="560" height="315" src="{{thread_info['video_link']}}" title="YouTube video player"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+                    gyroscope; picture-in-picture" allowfullscreen class="youtube"></iframe>
+            <br>
+        {% endif %}
+    </div>
     <div class="all_comments">
         {% for comment in comments%}
         <div class="individual_comment">
@@ -26,7 +33,8 @@
     </div>
     <div class="new_comment">
     <form action = '/thread/{{thread_number}}', method = 'POST'>
-        <input type="text" name='new_comment' placeholder="Add a new comment"/>
+        <textarea class="post_text" name="new_comment" placeholder="new comment">
+        </textarea>
         <input type="submit" value="Submit">
     </form>
     </div>
