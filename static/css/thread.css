@@ -1,28 +1,31 @@
 body {
-   background-color: rgb(220,220,220);
+   background-color: rgb(215, 222, 222);
+   font-family: 'Inter', sans-serif;
 }
 
 .post {
     border-radius:15px;
     width: 90%;
-    background-color:grey;
+    background-color:white;
     margin-left: 5%;
     margin-top: 3%;
     padding-bottom: 12px;
+    padding-top: 12px;
 }
 
 h1 {
    width: 70%;
-   margin-left: 35%;
+   margin-left: 3%;
 }
 
 h4 {
-   margin-left: 35%;
+   margin-top:3%;
+   margin-left: 3%;
 }
 
 .thread_content {
-    width: 60%;
-    margin-left:15%;
+    width: 95%;
+    margin-left:3%;
 }
 
 .linked_image{
@@ -79,7 +82,7 @@ input[type=submit]:hover{
   box-shadow:4px 4px 10px rgba(0,0,0,0.06);
   height: 75px;
   margin-left: 20%;
-  margin-top:3%;
+
 }
 
 .all_comments{
@@ -87,15 +90,60 @@ input[type=submit]:hover{
     padding-bottom: 15px;
     border-radius:15px;
     width: 90%;
-    background-color:grey;
+    background-color:white;
     margin-left: 5%;
-    margin-top: 3%;
+    margin-top: 1%;
 }
 
 .individual_comment{
-    margin-left:5%;
+    margin-left:1%;
     margin-top: 2%;
-    width: 90%;
+    width: 92%;
     background-color:white;
-    border: 2px solid black;
+    padding-top: 5px;
+    padding-left:15px;
+    padding-right:15px;
+    padding-bottom:5px;
+}
+
+.comment_image {
+   margin-top:2%;
+   margin-left:12%;
+}
+
+.new_comment_text {
+  display:block;
+  margin-left: 28%;
+  font-weight: bold;
+  font-size:120%;
+
+}
+
+.comments_header {
+  display:block;
+  margin-left:5%;
+  font-weight: bold;
+  font-size:120%;
+}
+
+input[type=text] {
+  padding:10px;
+  border:0;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  border-radius:10px;
+  margin-top:2%;
+  margin-left: 33%;
+}
+
+.comment_source {
+   margin-bottom: 2%;
+}
+.tag {
+   display:inline-block;
+}
+.tags {
+    display:block;
+    margin-left:3%;
+    font-weight: bold;
+    font-size:120%;
 }

@@ -54,11 +54,13 @@ def thread(thread_number):
     if request.method == 'POST':
         comment_info = {'text': request.form['new_comment'],
                         'author': 'lenin_lover69',
-                        'date_time': datetime.now().strftime("%m/%d/%Y %H:%M"),
+                        'date_time': datetime.now().strftime("%m/%d/%Y"),
                         'thread_id': thread_number}
+        image_link = request.form['image_link']
+        if image_link != '':
+            comment_info['image_link'] = image_link
         comments.insert_one(comment_info)
     thread_info = threads.find_one(ObjectId(thread_number))
-    #comment = comments.find_one(ObjectId("62572533e6569223cc720c62"))
     comment = comments.find({"thread_id": thread_number})
     return render_template('thread.html', thread_info=thread_info, comments=comment,
                            thread_number=thread_number)
@@ -75,6 +77,7 @@ def create_thread():
         thread_info = {
             'title': request.form['title'],
             'text': request.form['text'],
+            'tags': request.form['tags'],
             'author': 'fidel',
             'date_time': datetime.now().strftime("%m/%d/%Y %H:%M"),
         }
