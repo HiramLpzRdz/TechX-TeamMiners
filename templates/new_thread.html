@@ -4,24 +4,42 @@
     <meta charset="UTF-8">
     <title>Make a new thread</title>
     <link rel="stylesheet" href="../static/css/new_thread.css">
-    <link rel="stylesheet" href="../static/css/navbar.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/navbar.css")}}" />
 </head>
 <body>
-    <h1>
-        Create new thread:
-    </h1>
-    <form action = '/create_thread', method = 'POST'>
-        <input type="text" name='title' placeholder="Title:"/><br>
-        <input type="text" name="tags" placeholder="enter tags:"><br>
-        <textarea class="post_text" name="text" placeholder="new thread..."></textarea><br>
-        <div class="below_input">
-        <input type="text" name="video_link" placeholder="insert youtube link"/>
-        <input type="text" name="image_link" placeholder="insert image url"/>
-        <input type="submit" value="Create Thread">
-        </div>
-    </form>
+    <div class="sidebar">
+        <ul class="sidebar__nav">
+            <li class="item">
+                <i class="material-icons-outlined">home</i>
+            </li>
+            <li class="item">
+                <i class="material-icons-outlined">add</i>
+            </li>
+            <li class="item">
+                <i class="material-icons-outlined">account_circle</i>
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <a href="#" class="material-icons-outlined menu"> menu </a>
+        <h1>
+            Create new thread:
+        </h1>
+        <form action = '/create_thread', method = 'POST'>
+            <input type="text" name='title' placeholder="Title:"/><br>
+            <input type="text" name="tags" placeholder="enter tags:"><br>
+            <textarea class="post_text" name="text" placeholder="new thread..."></textarea><br>
+            <div class="below_input">
+            <input type="text" name="video_link" placeholder="insert youtube link"/>
+            <input type="text" name="image_link" placeholder="insert image url"/>
+            <input type="submit" value="Create Thread">
+            </div>
+        </form>
+    </div>
+    <script src="{{ url_for("static", filename="js/app.js") }}"></script>
 </body>
 </html>

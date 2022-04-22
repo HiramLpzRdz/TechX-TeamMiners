@@ -94,3 +94,7 @@ def create_thread():
         _id = threads.insert_one(thread_info)
         path = '/thread/' + str(_id.inserted_id)
         return redirect(path)
+
+@app.route('/main_feed')
+def main_feed():
+    return render_template('main_feed.html')

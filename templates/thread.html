@@ -7,59 +7,78 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/navbar.css")}}" />
 </head>
 <body>
-    <div class="post">
-        <h4>posted by {{thread_info['author']}} on {{thread_info['date_time']}}</h4>
-        <h1>{{thread_info['title']}}</h1>
-        {% if 'tags' in thread_info %}
-        <div class="tags">
-            {% for tag in thread_info['tags'] %}
-            <div class="tag">{{tag}}</div>
+    <div class="sidebar">
+        <ul class="sidebar__nav">
+            <li class="item">
+                <i class="material-icons-outlined">home</i>
+            </li>
+            <li class="item">
+                <i class="material-icons-outlined">add</i>
+            </li>
+            <li class="item">
+                <i class="material-icons-outlined">account_circle</i>
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <a href="#" class="material-icons-outlined menu"> menu </a>
+        <div class="post">
+            <h4>posted by {{thread_info['author']}} on {{thread_info['date_time']}}</h4>
+            <h1>{{thread_info['title']}}</h1>
+            {% if 'tags' in thread_info %}
+            <div class="tags">
+                {% for tag in thread_info['tags'] %}
+                <div class="tag">{{tag}}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <p class="thread_content">{{thread_info['text']}}</p>
+            {% if 'image_link' in thread_info %}
+            <img src={{thread_info['image_link']}} alt="thread_image" width="90%" height="90%" class="linked_image">
+            <br>
+            {% endif %}
+            {% if 'video_link' in thread_info %}
+                <iframe width="560" height="315" src="{{thread_info['video_link']}}" title="YouTube video player"
+                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+                        gyroscope; picture-in-picture" allowfullscreen class="youtube"></iframe>
+                <br>
+            {% endif %}
+        </div>
+        <p class="comments_header">comments</p>
+        <div class="all_comments">
+            {% for comment in comments%}
+            <div class="individual_comment">
+                <div class = "comment_source">
+                    <b>{{comment['author']}} on {{comment['date_time']}}</b><br>
+                </div>
+                <div class="comment_content">
+                {{comment['text']}}
+                </div>
+                {% if 'image_link' in comment %}
+                <img src={{comment['image_link']}} alt="comment_image" width="80%" height="80%" class="comment_image">
+                {% endif %}
+
+            </div>
+            <hr>
+
             {% endfor %}
         </div>
-        {% endif %}
-        <p class="thread_content">{{thread_info['text']}}</p>
-        {% if 'image_link' in thread_info %}
-        <img src={{thread_info['image_link']}} alt="thread_image" width="90%" height="90%" class="linked_image">
-        <br>
-        {% endif %}
-        {% if 'video_link' in thread_info %}
-            <iframe width="560" height="315" src="{{thread_info['video_link']}}" title="YouTube video player"
-                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media;
-                    gyroscope; picture-in-picture" allowfullscreen class="youtube"></iframe>
-            <br>
-        {% endif %}
-    </div>
-    <p class="comments_header">comments</p>
-    <div class="all_comments">
-        {% for comment in comments%}
-        <div class="individual_comment">
-            <div class = "comment_source">
-                <b>{{comment['author']}} on {{comment['date_time']}}</b><br>
-            </div>
-            <div class="comment_content">
-            {{comment['text']}}
-            </div>
-            {% if 'image_link' in comment %}
-            <img src={{comment['image_link']}} alt="comment_image" width="80%" height="80%" class="comment_image">
-            {% endif %}
-
+        <p class="new_comment_text">
+            add comment
+        </p>
+        <div class="new_comment">
+        <form action = '/thread/{{thread_number}}', method = 'POST'>
+            <textarea class="comment_input" name="new_comment" placeholder="new comment"></textarea>
+            <input type="text" name="image_link" placeholder="img url"><br>
+            <input type="submit" value="Submit">
+        </form>
         </div>
-        <hr>
-
-        {% endfor %}
     </div>
-    <p class="new_comment_text">
-        add comment
-    </p>
-    <div class="new_comment">
-    <form action = '/thread/{{thread_number}}', method = 'POST'>
-        <textarea class="comment_input" name="new_comment" placeholder="new comment"></textarea>
-        <input type="text" name="image_link" placeholder="img url"><br>
-        <input type="submit" value="Submit">
-    </form>
-    </div>
+    <script src="{{ url_for("static", filename="js/app.js") }}"></script>
 </body>
 
 </html>

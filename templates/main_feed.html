@@ -4,9 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Main Feed</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/navbar.css")}}" />
 </head>
 <body>
-    
+    <div class="sidebar">
+        <ul class="sidebar__nav">
+            <li class="item">
+                <i class="material-icons-outlined">home</i>
+            </li>
+            <li class="item">
+                <i class="material-icons-outlined">add</i>
+            </li>
+            <li class="item">
+                <i class="material-icons-outlined">account_circle</i>
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <a href="#" class="material-icons-outlined menu"> menu </a>
+    </div>
+    <script src="{{ url_for("static", filename="js/app.js") }}"></script>
 </body>
 </html>
