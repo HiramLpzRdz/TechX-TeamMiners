@@ -67,7 +67,6 @@ html {
 }
 
 .menu--active {
-  transform: rotate(-90deg);
   left: 1.2rem;
   top: 5rem;
 }
