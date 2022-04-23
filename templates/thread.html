@@ -34,7 +34,7 @@
         <a href="#" class="material-icons-outlined menu"> menu </a>
         <div class="post">
             <h4>posted by {{thread_info['author']}} on {{thread_info['date_time']}}</h4>
-            <h1>{{thread_info['title']}}</h1>
+            <h1><b>{{thread_info['title']}}</b></h1>
             {% if 'tags' in thread_info %}
             <div class="tags">
                 {% for tag in thread_info['tags'] %}

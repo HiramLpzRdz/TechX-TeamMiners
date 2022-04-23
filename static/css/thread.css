@@ -14,22 +14,34 @@ body {
 }
 
 h1 {
-   width: 70%;
+   width: 90%;
    margin-left: 3%;
+   margin-bottom: 2%;
+   font-size: 300%;
+   font-weight: bold;
 }
 
 h4 {
-   margin-top:3%;
+   margin-top:1%;
    margin-left: 3%;
+   margin-bottom: 1%;
+   font-size: 1.6em;
+}
+
+.tag {
+  font-size: 1.7em;
+  margin-bottom: 2%;
 }
 
 .thread_content {
     width: 95%;
     margin-left:3%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    font-size: 1.9em;
 }
 
 .linked_image{
-    margin-top:3%;
     margin: auto;
     display: block;
 }
@@ -43,7 +55,7 @@ h4 {
 input[type=submit]{
    display:inline-block;
    padding:0.3em 1.2em;
-   margin-left: 37%;
+   margin-left: 46.8%;
    margin-top: 1%;
    border-radius:2em;
    box-sizing: border-box;
@@ -72,8 +84,8 @@ input[type=submit]:hover{
 }
 
 .comment_input{
-  margin: auto;
   display: block;
+  margin: auto;
   width:40%;
   resize: vertical;
   padding:2px;
@@ -81,8 +93,6 @@ input[type=submit]:hover{
   border:0;
   box-shadow:4px 4px 10px rgba(0,0,0,0.06);
   height: 75px;
-  margin-left: 20%;
-
 }
 
 .all_comments{
@@ -92,7 +102,6 @@ input[type=submit]:hover{
     width: 90%;
     background-color:white;
     margin-left: 5%;
-    margin-top: 1%;
 }
 
 .individual_comment{
@@ -103,7 +112,7 @@ input[type=submit]:hover{
     padding-top: 5px;
     padding-left:15px;
     padding-right:15px;
-    padding-bottom:5px;
+    padding-bottom:20px;
 }
 
 .comment_image {
@@ -113,17 +122,19 @@ input[type=submit]:hover{
 
 .new_comment_text {
   display:block;
-  margin-left: 28%;
+  margin-left: -20%;
   font-weight: bold;
-  font-size:120%;
+  font-size:220%;
+  margin-top: 2%;
 
 }
 
 .comments_header {
   display:block;
-  margin-left:5%;
+  margin-left:-74%;
   font-weight: bold;
-  font-size:120%;
+  font-size:240%;
+  margin-top: 1%;
 }
 
 input[type=text] {
@@ -131,12 +142,18 @@ input[type=text] {
   border:0;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   border-radius:10px;
+  display:block;
+  margin: auto;
   margin-top:2%;
-  margin-left: 33%;
 }
 
 .comment_source {
    margin-bottom: 2%;
+   font-size: 1.9em;
+}
+
+.comment_content {
+    font-size: 1.9em;
 }
 .tag {
    display:inline-block;
