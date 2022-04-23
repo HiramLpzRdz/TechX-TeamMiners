@@ -1,0 +1,72 @@
+  body{  
+    margin: 0;  
+    padding: 0;  
+    background-color: rgb(215, 222, 222);
+    font-family: 'Inter', sans-serif; 
+  }  
+  .login_sec{  
+    width: 100%;  
+    display: flex;  
+    flex-direction: column;  
+    justify-content: center;  
+    align-items: center;  
+    height: auto;  
+  }  
+  .container{  
+    width: 500px;  
+    height: auto;  
+    margin-top: 8em;  
+    display: flex;  
+    flex-direction: column;  
+    align-items: center;
+    border-radius:10px;  
+  }  
+  .heading h1{  
+    font-size: 30px;  
+    font-family: poppins;  
+    letter-spacing: 1px;  
+    text-align: center;  
+  }  
+   
+  .items{  
+    margin: 30px 0;   
+  }  
+  .items label{  
+    display: flex;  
+    flex-direction: column;  
+    font-size: 14px;  
+    padding: 10px 0;  
+  }  
+  label .inp{  
+    margin: 10px 0;  
+    padding: 7px;  
+    border-radius: 7px;  
+    border: 1px solid rgb(218, 218, 218);  
+    transition: .1s;  
+    outline: 1px solid #fff;  
+    width: 230px;  
+  }  
+  label .inp:focus{  
+    outline: 1px solid #406cc4;  
+    border: 1px solid #406cc4;  
+  }  
+  .inline{  
+    display: flex;  
+    justify-content: space-between;  
+  }  
+  .inline .signin{  
+    color: #406cc4;
+    justify-content: center; 
+    text-decoration: underline;  
+    cursor: pointer;  
+  }  
+  .login_button{  
+    background: rgb(227, 84, 7);  
+    color: rgb(229, 239, 227);  
+    padding: 7px;  
+    border: 2px solid rgb(243, 240, 240);  
+    border-radius: 8px;  
+    font-size: 17px;  
+    transition: .2s;  
+    cursor: pointer;  
+  }  

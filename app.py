@@ -48,6 +48,29 @@ threads = db.thread
 @app.route('/index')
 def index():
     return render_template('index.html')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == "POST":
+        users = mongo.db.users
+        #search for username in database
+        login_user = users.find_one({'name': request.form['username']})
+
+        #if username in database
+        if login_user:
+            db_password = login_user['password']
+            #encode password
+            password = request.form['password'].encode("utf-8")
+            #compare username in database to username submitted in form
+            if bcrypt.checkpw(password, db_password):
+                #store username in session
+                session['username'] = request.form['username']
+                return redirect(url_for('index'))
+            else:
+                return 'Invalid username/password combination.'
+        else:
+            return 'User not found.'
+    else:
+        return render_template('login.html')
 
 @app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):
