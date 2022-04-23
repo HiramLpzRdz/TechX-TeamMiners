@@ -15,7 +15,7 @@
 # ---- YOUR APP STARTS HERE ----
 # -- Import section --
 from flask import Flask
-from flask import render_template
+from flask import render_template, url_for
 from flask import request, redirect
 from flask_pymongo import PyMongo
 import pymongo
@@ -44,10 +44,11 @@ threads = db.thread
 
 # -- Routes section --
 # INDEX Route
+# @app.route('/')
+# @app.route('/index')
+# def index():
+#     return render_template('index.html')
 @app.route('/')
-@app.route('/index')
-def index():
-    return render_template('index.html')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
@@ -120,4 +121,5 @@ def create_thread():
 
 @app.route('/main_feed')
 def main_feed():
-    return render_template('main_feed.html')
+    threads_info = threads.find({})
+    return render_template('main_feed.html', threads = threads_info)

@@ -7,6 +7,7 @@
     <title>Main Feed</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
     <link rel="stylesheet" href="{{ url_for("static", filename="css/navbar.css")}}" />
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/main_feed.css")}}" />
 </head>
 <body>
     <div class="sidebar">
@@ -17,7 +18,7 @@
                 </a>
             </li>
             <li class="item">
-                <a href="">
+                <a href="{{ url_for('new_thread') }}">
                     <i class="material-icons-outlined">add</i>
                 </a>
             </li>
@@ -30,6 +31,37 @@
     </div>
     <div class="main">
         <a href="#" class="material-icons-outlined menu"> menu </a>
+        <div class="card-container">
+            {% for thread in threads %}
+                <div class="card">
+                    <header class="article-header">
+                        <div>
+                            <div class="category-title">
+                                
+                                <span class="date">{{ thread['date_time'] }}</span>
+                            </div>
+                        </div>
+                        <h2 class="article-title">
+                            {{ thread['title'] }}
+                        </h2>
+                    </header>
+                    <div class="author">
+                        <div class="profile"></div>
+                        <div class="info">
+                            <div class="caption">Author</div>
+                            <div class="name">{{ thread['author'] }}</div>
+                        </div>
+                    </div>
+                    {% if 'tags' in thread_info %}
+                        {% for tag in thread['tags'] %}
+                            <div class="tags">
+                                <div>{{ tag }}</div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+    </div>
     </div>
     <script src="{{ url_for("static", filename="js/app.js") }}"></script>
 </body>
