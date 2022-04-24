@@ -122,11 +122,10 @@ input[type=submit]:hover{
 
 .new_comment_text {
   display:block;
-  margin-left: -20%;
+  margin-left: -18%;
   font-weight: bold;
   font-size:220%;
   margin-top: 2%;
-
 }
 
 .comments_header {
