@@ -71,13 +71,20 @@ def login():
     else:
         return render_template('login.html')
 
+@app.route('/user', methods=['GET', 'POST'])
+def user():
+    threads_by_user = threads.find({'author': 'fidel'})
+    comments_by_user = comments.find({'author': 'lenin_lover69'})
+    return render_template('user.html', threads=threads_by_user,
+                           comments=comments_by_user)
+
 @app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):
     if request.method == 'POST':
-        comment_info = thread_checker.create_comment('lenin_lover69',
-                                                     request.form['new_comment'],
-                                                     thread_number,
-                                                     request.form['image_link'])
+        # comment_info = thread_checker.create_comment('lenin_lover69',
+        #                                              request.form['new_comment'],
+        #                                              thread_number,
+        #                                              request.form['image_link'])
         comment_info = {'text': request.form['new_comment'],
                         'author': 'lenin_lover69',
                         'date_time': datetime.now().strftime("%m/%d/%Y"),
@@ -85,6 +92,8 @@ def thread(thread_number):
         image_link = request.form['image_link']
         if image_link != '':
             comment_info['image_link'] = image_link
+        thread_title = threads.find_one(ObjectId(thread_number))
+        comment_info['thread_title'] = thread_title['title']
         comments.insert_one(comment_info)
     thread_info = threads.find_one(ObjectId(thread_number))
     comment = comments.find({"thread_id": thread_number})

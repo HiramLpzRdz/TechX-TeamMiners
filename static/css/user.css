@@ -1,0 +1,143 @@
+body {
+   background-color: rgb(215, 222, 222);
+   font-family: 'Inter', sans-serif;
+}
+
+.page_content {
+    width: 80%;
+    height: 94%;
+    margin-left: 10%;
+}
+
+.user_info {
+    font-size: 3.2em;
+    display: block;
+    margin-left: 35%;
+    font-weight: bold;
+}
+
+.profile_picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    border: black solid;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    margin-left: 37%;
+}
+
+.cpp_text {
+    font-size: 1.2em;
+    margin-left: 25.5%;
+    font-weight: bold;
+}
+
+.new_link{
+  display: block;
+  margin-left: 25%;
+  width:40%;
+  resize: vertical;
+  padding:2px;
+  border-radius:15px;
+  border:0;
+  box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+
+}
+
+input[type=submit]{
+   display:inline-block;
+   padding:0.3em 1.2em;
+   margin-left: 41%;
+   margin-top: 1%;
+   border-radius:2em;
+   box-sizing: border-box;
+   text-decoration:none;
+   font-family:'Roboto',sans-serif;
+   font-weight:300;
+   color:#FFFFFF;
+   background-color:#4eb5f1;
+   text-align:center;
+   transition: all 0.2s;
+}
+
+
+
+input[type=submit]:hover{
+   background-color:#4095c6;
+}
+@media all and (max-width:30em) {
+   input[type=submit]{
+      display:inline-block;
+      margin:0.2em auto;
+   }
+}
+
+.section {
+    font-size: 2.8em;
+    font-weight: bold;
+}
+
+.all_threads {
+   width: 90%;
+   background-color: white;
+   font-size: 2.2em;
+   border-radius:15px;
+   padding: 2%;
+}
+
+.thread_title {
+   margin-bottom: 3%;
+}
+
+.comments {
+   width: 90%;
+   background-color: white;
+
+   border-radius:15px;
+   padding: 2%;
+}
+
+.comment {
+  margin-bottom: 2%;
+}
+
+.comment_source {
+   font-size: 2.0em;
+   margin-bottom: 1%;
+}
+
+.comment_thread_title {
+   font-size: 2.2em;
+   font-color: black;
+   margin-bottom: 1%;
+   font-weight: bold;
+}
+
+.comment_content {
+   font-size: 1.8em;
+   margin-bottom: 1%;
+}
+
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: blue;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:active {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}

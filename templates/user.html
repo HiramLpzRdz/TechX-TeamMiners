@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user</title>
+    <link rel="stylesheet" href="../static/css/user.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/navbar.css")}}" />
+</head>
+<body>
+    <div class="sidebar">
+        <ul class="sidebar__nav">
+            <li class="item">
+                <a href="{{ url_for('main_feed') }}">
+                    <i class="material-icons-outlined">home</i>
+                </a>
+            </li>
+            <li class="item">
+                <a href="{{ url_for('new_thread') }}">
+                    <i class="material-icons-outlined">add</i>
+                </a>
+            </li>
+            <li class="item">
+                <a href="">
+                    <i class="material-icons-outlined">account_circle</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <a href="#" class="material-icons-outlined menu"> menu </a>
+        <div class="page_content">
+        <div class="user_info">
+            lenin_lover69
+        </div>
+            <img src="https://png.pngitem.com/pimgs/s/22-223968_default-profile-picture-circle-hd-png-download.png" alt="Thom Yorke" class="profile_picture">
+            <div class="cpp_text">
+            Change Profile Picture
+            </div>
+            <form action ='/change_profile', method = 'POST'>
+            <input type="text" class="new_link" placeholder="img url"><br>
+                <input type="submit" value="Submit">
+            </form>
+        <div class="section">threads</div>
+            <div class="all_threads">
+            {% for thread in threads%}
+            <div class="individual_thread">
+                <div class = "thread_date">{{thread['date_time']}}</div>
+                <div class = "thread_title">
+                    <a href="/thread/{{thread['_id']}}">
+                        <b>{{thread['title']}}</b>
+                    </a>
+                    <hr>
+                    <br>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+        <div class="section">comments</div>
+
+        <div class="comments">
+            {% for comment in comments%}
+            <div class="comment">
+                <div class = "comment_source">
+                    <b>{{comment['date_time']}}</b><br>
+                </div>
+                <div class="comment_thread_title">
+                    <a href="/thread/{{comment['thread_id']}}">{{comment['thread_title']}}</a><br>
+                </div>
+                <div class="comment_content">
+                      {{comment['text']}}
+                </div>
+                <hr>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for("static", filename="js/app.js") }}"></script>
+</body>
+
+</html>
