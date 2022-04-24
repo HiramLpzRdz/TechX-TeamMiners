@@ -22,6 +22,7 @@ import pymongo
 import certifi
 from bson import ObjectId
 from datetime import datetime
+import thread
 
 # -- Initialization section --
 app = Flask(__name__)
@@ -41,13 +42,10 @@ user = db.user
 comments = db.comments
 threads = db.thread
 
+thread_checker = thread.Thread()
+
 
 # -- Routes section --
-# INDEX Route
-# @app.route('/')
-# @app.route('/index')
-# def index():
-#     return render_template('index.html')
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -76,6 +74,10 @@ def login():
 @app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):
     if request.method == 'POST':
+        comment_info = thread_checker.create_comment('lenin_lover69',
+                                                     request.form['new_comment'],
+                                                     thread_number,
+                                                     request.form['image_link'])
         comment_info = {'text': request.form['new_comment'],
                         'author': 'lenin_lover69',
                         'date_time': datetime.now().strftime("%m/%d/%Y"),
@@ -98,23 +100,14 @@ def create_thread():
     if request.method == 'GET':
         return 'you should not be here'
     if request.method == 'POST':
-        thread_info = {
-            'title': request.form['title'],
-            'text': request.form['text'],
-            'tags': request.form['tags'],
-            'author': 'fidel',
-            'date_time': datetime.now().strftime("%m/%d/%Y %H:%M"),
-        }
-        vl = request.form['video_link']
-        if vl != '':
-            vl = vl.replace('watch?v=', 'embed/')
-            thread_info['video_link'] = vl
-        il = request.form['image_link']
-        if il != '':
-            thread_info['image_link'] = il
-        tags = request.form['tags']
-        if tags != '':
-            thread_info['tags'] = tags.split()
+        thread_info = thread_checker.check_new_thread(
+            request.form['title'],
+            request.form['text'],
+            request.form['tags'],
+            'fidel',
+            request.form['video_link'],
+            request.form['image_link']
+        )
         _id = threads.insert_one(thread_info)
         path = '/thread/' + str(_id.inserted_id)
         return redirect(path)
