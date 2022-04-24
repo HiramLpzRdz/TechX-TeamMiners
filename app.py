@@ -108,6 +108,12 @@ def signup():
     else:
         return render_template('signup.html')
 
+@app.route('/logout')
+def logout():
+    #clear username from session data
+    session.clear()
+    return redirect('/')
+
 @app.route('/user', methods=['GET', 'POST'])
 def user():
     threads_by_user = threads.find({'author': 'fidel'})
