@@ -43,7 +43,7 @@ app.secret_key = secrets.token_urlsafe(16)
 
 client = pymongo.MongoClient("mongodb+srv://admin:3sAW1DQEaqpfDtqz@cluster0.ma4v1.mongodb.net/lab9database?retryWrites=true&w=majority", tlsCAFile=certifi.where())
 db = client.unit4
-user = db.user
+users = db.user
 comments = db.comments
 threads = db.thread
 
@@ -81,7 +81,7 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":
-        users = mongo.db.users
+        #users = mongo.db.unit4.user
         #search for username in database
         existing_user = users.find_one({'name': request.form['username']})
 
@@ -93,7 +93,6 @@ def signup():
             email_address = request.form['email']
             classification = request.form['classification']
 
-
             #hash password
             salt = bcrypt.gensalt()
             hashed = bcrypt.hashpw(password, salt)
@@ -101,8 +100,7 @@ def signup():
             users.insert_one({'name': username, 'password': hashed, 'email_address': email_address, 'classification': classification, 'profile_image': "https://png.pngitem.com/pimgs/s/22-223968_default-profile-picture-circle-hd-png-download.png"})
             #store username in session
             session['username'] = request.form['username']
-            return redirect(url_for('index'))
-
+            return redirect(url_for('main_feed'))
         else:
             return 'Username already registered.  Try logging in.'
     
