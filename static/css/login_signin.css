@@ -3,7 +3,7 @@
     padding: 0;  
     background-color: rgb(215, 222, 222);
     font-family: 'Inter', sans-serif; 
-  }  
+  } 
   .login_sec{  
     width: 100%;  
     display: flex;  
@@ -60,7 +60,7 @@
     text-decoration: underline;  
     cursor: pointer;  
   }  
-  .login_button{  
+  .button{  
     background: rgb(227, 84, 7);  
     color: rgb(229, 239, 227);  
     padding: 7px;  

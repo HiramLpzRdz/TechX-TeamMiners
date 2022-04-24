@@ -89,11 +89,15 @@ def signup():
             username = request.form['username']
             #encode password for hashing
             password = request.form['password'].encode("utf-8")
+            email_address = request.form['email']
+            classification = request.form['classification']
+
+
             #hash password
             salt = bcrypt.gensalt()
             hashed = bcrypt.hashpw(password, salt)
             #add new user to database
-            users.insert_one({'name': username, 'password': hashed})
+            users.insert_one({'name': username, 'password': hashed, 'email_address': email_address, 'classification': classification, 'profile_image': "https://png.pngitem.com/pimgs/s/22-223968_default-profile-picture-circle-hd-png-download.png"})
             #store username in session
             session['username'] = request.form['username']
             return redirect(url_for('index'))
