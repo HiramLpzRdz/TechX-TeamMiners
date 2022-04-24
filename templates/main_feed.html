@@ -29,9 +29,10 @@
             </li>
         </ul>
     </div>
+    
     <div class="main">
         <a href="#" class="material-icons-outlined menu"> menu </a>
-        <div class="card-container">
+        <div class="card-container"></div>
             {% for thread in threads %}
                 <a href="/thread/{{ thread._id }}">
                     <div class="card">
@@ -63,7 +64,7 @@
                     </div>
                 </a>
             {% endfor %}
-    </div>
+        </div>
     </div>
     <script src="{{ url_for("static", filename="js/app.js") }}"></script>
 </body>
