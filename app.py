@@ -58,7 +58,7 @@ def login():
     if request.method == "POST":
         users = mongo.db.users
         #search for username in database
-        login_user = users.find_one({'name': request.form['username']})
+        login_user = users.find_one({'email_address': request.form['email']})
 
         #if username in database
         if login_user:
@@ -68,8 +68,8 @@ def login():
             #compare username in database to username submitted in form
             if bcrypt.checkpw(password, db_password):
                 #store username in session
-                session['username'] = request.form['username']
-                return redirect(url_for('index'))
+                session['username'] = login_user['name']
+                return redirect(url_for('main_feed'))
             else:
                 return 'Invalid username/password combination.'
         else:
