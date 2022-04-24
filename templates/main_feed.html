@@ -33,33 +33,35 @@
         <a href="#" class="material-icons-outlined menu"> menu </a>
         <div class="card-container">
             {% for thread in threads %}
-                <div class="card">
-                    <header class="article-header">
-                        <div>
-                            <div class="category-title">
-                                
-                                <span class="date">{{ thread['date_time'] }}</span>
+                <a href="/thread/{{ thread._id }}">
+                    <div class="card">
+                        <header class="article-header">
+                            <div>
+                                <div class="category-title">
+                                    
+                                    <span class="date">{{ thread['date_time'] }}</span>
+                                </div>
+                            </div>
+                            <h2 class="article-title">
+                                {{ thread['title'] }}
+                            </h2>
+                        </header>
+                        <div class="author">
+                            <div class="profile"></div>
+                            <div class="info">
+                                <div class="caption">Author</div>
+                                <div class="name">{{ thread['author'] }}</div>
                             </div>
                         </div>
-                        <h2 class="article-title">
-                            {{ thread['title'] }}
-                        </h2>
-                    </header>
-                    <div class="author">
-                        <div class="profile"></div>
-                        <div class="info">
-                            <div class="caption">Author</div>
-                            <div class="name">{{ thread['author'] }}</div>
-                        </div>
+                        {% if 'tags' in thread_info %}
+                            {% for tag in thread['tags'] %}
+                                <div class="tags">
+                                    <div>{{ tag }}</div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
-                    {% if 'tags' in thread_info %}
-                        {% for tag in thread['tags'] %}
-                            <div class="tags">
-                                <div>{{ tag }}</div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
+                </a>
             {% endfor %}
     </div>
     </div>
