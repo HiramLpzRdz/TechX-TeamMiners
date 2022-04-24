@@ -113,17 +113,20 @@ def logout():
     session.clear()
     return redirect('/')
 
-@app.route('/user', methods=['GET', 'POST'])
-def user():
+@app.route('/user/<username>', methods=['GET', 'POST'])
+def user(username):
     '''
     sets up user page
     :param user_id: str - id of user profile
     :return renders user.html
     '''
-    threads_by_user = threads.find({'author': 'fidel'})
-    comments_by_user = comments.find({'author': 'lenin_lover69'})
+    if not session:
+        return render_template('login.html')
+    threads_by_user = threads.find({'author': username})
+    comments_by_user = comments.find({'author': username})
     return render_template('user.html', threads=threads_by_user,
-                           comments=comments_by_user)
+                           comments=comments_by_user, username=username,
+                           session=session)
 
 @app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):
@@ -132,8 +135,10 @@ def thread(thread_number):
     :param user_id: str - id of thread
     :return renders thread.html
     '''
+    if not session:
+        return render_template('login.html')
     if request.method == 'POST':
-        comment_info = thread_checker.create_comment('lenin_lover69',
+        comment_info = thread_checker.create_comment(session['username'],
                                                      request.form['new_comment'],
                                                      thread_number,
                                                      request.form['image_link'])
@@ -151,6 +156,8 @@ def new_thread():
     renders template to create new thread
     :return renders new_thread.html
     '''
+    if not session:
+        return render_template('login.html')
     return render_template('new_thread.html')
 
 @app.route('/create_thread', methods=['GET', 'POST'])
@@ -163,12 +170,14 @@ def create_thread():
     '''
     if request.method == 'GET':
         return 'you should not be here'
+    if not session:
+        return render_template('login.html')
     if request.method == 'POST':
         thread_info = thread_checker.check_new_thread(
             request.form['title'],
             request.form['text'],
             request.form['tags'],
-            'fidel',
+            session['username'],
             request.form['video_link'],
             request.form['image_link']
         )

@@ -35,9 +35,10 @@
         <a href="#" class="material-icons-outlined menu"> menu </a>
         <div class="page_content">
         <div class="user_info">
-            lenin_lover69
+            {{username}}
         </div>
             <img src="https://png.pngitem.com/pimgs/s/22-223968_default-profile-picture-circle-hd-png-download.png" alt="Thom Yorke" class="profile_picture">
+            {% if session['username'] == username %}
             <div class="cpp_text">
             Change Profile Picture
             </div>
@@ -45,6 +46,7 @@
             <input type="text" class="new_link" placeholder="img url"><br>
                 <input type="submit" value="Submit">
             </form>
+            {% endif %}
         <div class="section">threads</div>
             <div class="all_threads">
             {% for thread in threads%}
