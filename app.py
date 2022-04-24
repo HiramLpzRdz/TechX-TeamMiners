@@ -18,6 +18,7 @@ from flask import Flask
 from flask import render_template, url_for
 from flask import request, redirect, session, url_for
 from flask_pymongo import PyMongo
+import secrets
 import pymongo
 import certifi
 from bson import ObjectId
@@ -74,6 +75,34 @@ def login():
             return 'User not found.'
     else:
         return render_template('login.html')
+
+#SIGNUP Route
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == "POST":
+        users = mongo.db.users
+        #search for username in database
+        existing_user = users.find_one({'name': request.form['username']})
+
+        #if user not in database
+        if not existing_user:
+            username = request.form['username']
+            #encode password for hashing
+            password = request.form['password'].encode("utf-8")
+            #hash password
+            salt = bcrypt.gensalt()
+            hashed = bcrypt.hashpw(password, salt)
+            #add new user to database
+            users.insert_one({'name': username, 'password': hashed})
+            #store username in session
+            session['username'] = request.form['username']
+            return redirect(url_for('index'))
+
+        else:
+            return 'Username already registered.  Try logging in.'
+    
+    else:
+        return render_template('signup.html')
 
 @app.route('/user', methods=['GET', 'POST'])
 def user():
