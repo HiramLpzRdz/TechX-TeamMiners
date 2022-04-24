@@ -16,13 +16,14 @@
 # -- Import section --
 from flask import Flask
 from flask import render_template, url_for
-from flask import request, redirect
+from flask import request, redirect, session, url_for
 from flask_pymongo import PyMongo
 import pymongo
 import certifi
 from bson import ObjectId
 from datetime import datetime
 import thread
+import bcrypt
 
 # -- Initialization section --
 app = Flask(__name__)
@@ -35,6 +36,9 @@ app.config['MONGO_URI'] = "mongodb+srv://admin:3sAW1DQEaqpfDtqz@cluster0.ma4v1.m
 
 #Initialize PyMongo
 mongo = PyMongo(app)
+
+# -- Session data --
+app.secret_key = secrets.token_urlsafe(16)
 
 client = pymongo.MongoClient("mongodb+srv://admin:3sAW1DQEaqpfDtqz@cluster0.ma4v1.mongodb.net/lab9database?retryWrites=true&w=majority", tlsCAFile=certifi.where())
 db = client.unit4
