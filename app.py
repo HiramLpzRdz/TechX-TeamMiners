@@ -47,6 +47,7 @@ user = db.user
 comments = db.comments
 threads = db.thread
 
+# -- verifies thread info --
 thread_checker = thread.Thread()
 
 
@@ -116,6 +117,11 @@ def logout():
 
 @app.route('/user', methods=['GET', 'POST'])
 def user():
+    '''
+    sets up user page
+    :param user_id: str - id of user profile
+    :return renders user.html
+    '''
     threads_by_user = threads.find({'author': 'fidel'})
     comments_by_user = comments.find({'author': 'lenin_lover69'})
     return render_template('user.html', threads=threads_by_user,
@@ -123,20 +129,18 @@ def user():
 
 @app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):
+    '''
+    sets up thread page
+    :param user_id: str - id of thread
+    :return renders thread.html
+    '''
     if request.method == 'POST':
-        # comment_info = thread_checker.create_comment('lenin_lover69',
-        #                                              request.form['new_comment'],
-        #                                              thread_number,
-        #                                              request.form['image_link'])
-        comment_info = {'text': request.form['new_comment'],
-                        'author': 'lenin_lover69',
-                        'date_time': datetime.now().strftime("%m/%d/%Y"),
-                        'thread_id': thread_number}
-        image_link = request.form['image_link']
-        if image_link != '':
-            comment_info['image_link'] = image_link
-        thread_title = threads.find_one(ObjectId(thread_number))
-        comment_info['thread_title'] = thread_title['title']
+        comment_info = thread_checker.create_comment('lenin_lover69',
+                                                     request.form['new_comment'],
+                                                     thread_number,
+                                                     request.form['image_link'])
+        parent_thread = threads.find_one(ObjectId(thread_number))
+        comment_info['thread_title'] = parent_thread['title']
         comments.insert_one(comment_info)
     thread_info = threads.find_one(ObjectId(thread_number))
     comment = comments.find({"thread_id": thread_number})
@@ -145,10 +149,20 @@ def thread(thread_number):
 
 @app.route('/new_thread', methods=['GET', 'POST'])
 def new_thread():
+    '''
+    renders template to create new thread
+    :return renders new_thread.html
+    '''
     return render_template('new_thread.html')
 
 @app.route('/create_thread', methods=['GET', 'POST'])
 def create_thread():
+    '''
+    sets up gets post info from /new_thread and
+    created a new thread in MONGO DB
+    :return renders thread.html with the new thread
+    id that was just created
+    '''
     if request.method == 'GET':
         return 'you should not be here'
     if request.method == 'POST':
