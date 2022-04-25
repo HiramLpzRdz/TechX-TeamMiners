@@ -24,12 +24,12 @@
                 </a>
             </li>
             <li class="item">
-                <a href="">
+                <a href="/user/{{cookie.get('username')}}">
                     <i class="material-icons-outlined">account_circle</i>
                 </a>
             </li>
             <li class="item">
-                <a href="">
+                <a href="{{ url_for('logout') }}">
                     <i class="material-icons-outlined">logout</i>
                 </a>
             </li>

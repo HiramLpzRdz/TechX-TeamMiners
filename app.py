@@ -16,7 +16,7 @@
 # -- Import section --
 import os
 from flask import Flask
-from flask import render_template, url_for
+from flask import render_template, url_for, make_response
 from flask import request, redirect, session, url_for
 from flask_pymongo import PyMongo
 import secrets
@@ -27,6 +27,7 @@ from datetime import datetime
 import thread
 import bcrypt
 from model import get_preview
+import requests
 # -- Initialization section --
 app = Flask(__name__)
 
@@ -56,6 +57,8 @@ thread_checker = thread.Thread()
 @app.route('/')
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'username' in request.cookies:
+        return redirect(url_for('main_feed'))
     if request.method == "POST":
         #search for username in database
         login_user = users.find_one({'email_address': request.form['email']})
@@ -67,9 +70,10 @@ def login():
             password = request.form['password'].encode("utf-8")
             #compare username in database to username submitted in form
             if bcrypt.checkpw(password, db_password):
-                #store username in session
-                session['username'] = login_user['name']
-                return redirect(url_for('main_feed'))
+                # store username in cookie
+                resp = make_response(redirect(url_for('main_feed')))
+                resp.set_cookie('username', login_user['name'])
+                return resp
             else:
                 return 'Invalid username/password combination.'
         else:
@@ -98,8 +102,9 @@ def signup():
             hashed = bcrypt.hashpw(password, salt)
             #add new user to database
             users.insert_one({'name': username, 'password': hashed, 'email_address': email_address, 'classification': classification, 'profile_image': "https://png.pngitem.com/pimgs/s/22-223968_default-profile-picture-circle-hd-png-download.png"})
-            #store username in session
-            session['username'] = request.form['username']
+            #store username in cookies
+            resp = make_response(redirect(url_for('main_feed')))
+            resp.set_cookie('username', request.form['username'])
             return redirect(url_for('main_feed'))
         else:
             return 'Username already registered.  Try logging in.'
@@ -110,8 +115,9 @@ def signup():
 @app.route('/logout')
 def logout():
     #clear username from session data
-    session.clear()
-    return redirect('/')
+    resp = make_response(redirect('login'))
+    resp.delete_cookie('username')
+    return resp
 
 @app.route('/user/<username>', methods=['GET', 'POST'])
 def user(username):
@@ -120,26 +126,26 @@ def user(username):
     :param user_id: str - id of user profile
     :return renders user.html
     '''
-    # if not session:
-    #     return render_template('login.html')
+    if 'username' not in request.cookies:
+        return render_template('login.html')
     threads_by_user = threads.find({'author': username})
     comments_by_user = comments.find({'author': username})
     user_info = users.find_one({'name': username})
     print(type(user_info))
     print('**&&&&***&&**&*&')
     return render_template('user.html', threads=threads_by_user,
-                           comments=comments_by_user, username=username,
-                           session=session, user_info=user_info)
+                           comments=comments_by_user, username=username, cookie = request.cookies,
+                           user_info=user_info)
 
 @app.route('/change_profile', methods=['GET', 'POST'])
 def change_profile():
     if request.method == 'GET':
         return "you shouldn't be here"
     new_link = request.form['new_link']
-    user_info = {'name': session['username']}
+    user_info = {'name': request.cookies.get('username')}
     new_address = {"$set": {"profile_image": new_link}}
     users.update_one(user_info, new_address)
-    return redirect('/user/' + session['username'])
+    return redirect('/user/' + request.cookies.get('username'))
 
 @app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):
@@ -148,22 +154,22 @@ def thread(thread_number):
     :param user_id: str - id of thread
     :return renders thread.html
     '''
-    if not session:
+    if 'username' not in request.cookies:
         return render_template('login.html')
     if request.method == 'POST':
-        comment_info = thread_checker.create_comment(session['username'],
+        comment_info = thread_checker.create_comment(request.cookies.get('username'),
                                                      request.form['new_comment'],
                                                      thread_number,
                                                      request.form['image_link'])
         parent_thread = threads.find_one(ObjectId(thread_number))
         comment_info['thread_title'] = parent_thread['title']
-        temp_user = users.find_one({'name': session['username']})
+        temp_user = users.find_one({'name': request.cookies.get('username')})
         comment_info['profile_image'] = temp_user['profile_image']
         comments.insert_one(comment_info)
     thread_info = threads.find_one(ObjectId(thread_number))
     comment = comments.find({"thread_id": thread_number})
     return render_template('thread.html', thread_info=thread_info, comments=comment,
-                           thread_number=thread_number)
+                           thread_number=thread_number, cookie = request.cookies)
 
 @app.route('/new_thread', methods=['GET', 'POST'])
 def new_thread():
@@ -171,7 +177,7 @@ def new_thread():
     renders template to create new thread
     :return renders new_thread.html
     '''
-    return render_template('new_thread.html')
+    return render_template('new_thread.html', cookie = request.cookies)
 
 @app.route('/create_thread', methods=['GET', 'POST'])
 def create_thread():
@@ -188,7 +194,7 @@ def create_thread():
             request.form['title'],
             request.form['text'],
             request.form['tags'],
-            session['username'],
+            request.cookies.get('username'),
             request.form['video_link'],
             request.form['image_link']
         )
@@ -199,7 +205,7 @@ def create_thread():
 @app.route('/main_feed', methods=['GET', 'POST'])
 def main_feed():
     threads_info = threads.find({})
-    return render_template('main_feed.html', threads = threads_info, get_preview=get_preview, type=type)
+    return render_template('main_feed.html', threads = threads_info, get_preview=get_preview, cookie = request.cookies)
 
 @app.route('/add_like/<thread_number>', methods = ['GET', 'POST'])
 def add_like(thread_number):
