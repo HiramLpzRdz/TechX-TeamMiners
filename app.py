@@ -14,6 +14,7 @@
 
 # ---- YOUR APP STARTS HERE ----
 # -- Import section --
+import os
 from flask import Flask
 from flask import render_template, url_for
 from flask import request, redirect, session, url_for
@@ -33,7 +34,8 @@ app = Flask(__name__)
 app.config['MONGO_DBNAME'] = 'unit4'
 
 # URI of database
-app.config['MONGO_URI'] = "mongodb+srv://admin:3sAW1DQEaqpfDtqz@cluster0.ma4v1.mongodb.net/lab9database?retryWrites=true&w=majority"
+app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
+# "mongodb+srv://admin:3sAW1DQEaqpfDtqz@cluster0.ma4v1.mongodb.net/lab9database?retryWrites=true&w=majority"
 
 #Initialize PyMongo
 mongo = PyMongo(app)
