@@ -56,7 +56,6 @@ thread_checker = thread.Thread()
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
-        users = mongo.db.users
         #search for username in database
         login_user = users.find_one({'email_address': request.form['email']})
 
