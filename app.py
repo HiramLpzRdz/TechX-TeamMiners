@@ -207,7 +207,7 @@ def main_feed():
     threads_info = threads.find({})
     return render_template('main_feed.html', threads = threads_info, get_preview=get_preview, type=type)
 
-@app.route('/add_like/<thread_number>', methods = ['POST'])
+@app.route('/add_like/<thread_number>', methods = ['GET', 'POST'])
 def add_like(thread_number):
     thread_info = threads.find_one(ObjectId(thread_number))
     likes = thread_info['likes'] + 1
