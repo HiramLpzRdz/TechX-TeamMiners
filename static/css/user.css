@@ -12,7 +12,7 @@ body {
 .user_info {
     font-size: 3.2em;
     display: block;
-    margin-left: 35%;
+    margin-left: 38%;
     font-weight: bold;
 }
 
@@ -59,8 +59,6 @@ input[type=submit]{
    text-align:center;
    transition: all 0.2s;
 }
-
-
 
 input[type=submit]:hover{
    background-color:#4095c6;
