@@ -64,6 +64,7 @@
         <div class="all_comments">
             {% for comment in comments%}
             <div class="individual_comment">
+                <img src="{{comment['profile_image']}}" class="profile_pic">
                 <div class = "comment_source">
                     <b>
                         <a href="/user/{{comment['author']}}">{{comment['author']}}</a>

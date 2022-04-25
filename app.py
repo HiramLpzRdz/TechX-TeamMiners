@@ -143,8 +143,6 @@ def change_profile():
     users.update_one(user_info, new_address)
     return redirect('/user/' + session['username'])
 
-
-
 @app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):
     '''
@@ -161,6 +159,8 @@ def thread(thread_number):
                                                      request.form['image_link'])
         parent_thread = threads.find_one(ObjectId(thread_number))
         comment_info['thread_title'] = parent_thread['title']
+        temp_user = users.find_one({'name': session['username']})
+        comment_info['profile_image'] = temp_user['profile_image']
         comments.insert_one(comment_info)
     thread_info = threads.find_one(ObjectId(thread_number))
     comment = comments.find({"thread_id": thread_number})
@@ -202,7 +202,7 @@ def create_thread():
         path = '/thread/' + str(_id.inserted_id)
         return redirect(path)
 
-@app.route('/main_feed')
+@app.route('/main_feed', methods=['GET', 'POST'])
 def main_feed():
     threads_info = threads.find({})
     return render_template('main_feed.html', threads = threads_info, get_preview=get_preview, type=type)
