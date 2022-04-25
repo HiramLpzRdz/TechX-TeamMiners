@@ -78,10 +78,10 @@ input[type=submit]:hover{
    }
 }
 .profile_pic{
-   width: 7%;
-   height: 7%;
-   margin-bottom: 2%;
-   border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    border-radius: 100px;
+    border: black solid;
    border: black solid;
    display: inline-block;
 }
@@ -178,7 +178,7 @@ a:link {
 }
 
 a:visited {
-  color: black;
+  color: green;
   background-color: transparent;
   text-decoration: none;
 }
@@ -190,7 +190,7 @@ a:hover {
 }
 
 a:active {
-  color: black;
+  color: red;
   background-color: transparent;
   text-decoration: none;
 }

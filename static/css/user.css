@@ -10,9 +10,11 @@ body {
 }
 
 .user_info {
+    width: 50%;
+    margin: auto;
     font-size: 3.2em;
-    display: block;
-    margin-left: 38%;
+    text-align:center;
+    margin-left: 20%;
     font-weight: bold;
 }
 
@@ -41,7 +43,6 @@ body {
   border-radius:15px;
   border:0;
   box-shadow:4px 4px 10px rgba(0,0,0,0.06);
-
 }
 
 input[type=submit]{
@@ -123,7 +124,7 @@ a:link {
 }
 
 a:visited {
-  color: black;
+  color: green;
   background-color: transparent;
   text-decoration: none;
 }
@@ -135,7 +136,7 @@ a:hover {
 }
 
 a:active {
-  color: black;
+  color: red;
   background-color: transparent;
   text-decoration: none;
 }
