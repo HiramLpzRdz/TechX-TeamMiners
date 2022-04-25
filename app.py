@@ -14,6 +14,7 @@
 
 # ---- YOUR APP STARTS HERE ----
 # -- Import section --
+import os
 from flask import Flask
 from flask import render_template, url_for
 from flask import request, redirect, session, url_for
@@ -119,13 +120,30 @@ def user(username):
     :param user_id: str - id of user profile
     :return renders user.html
     '''
-    if not session:
-        return render_template('login.html')
+    # if not session:
+    #     return render_template('login.html')
     threads_by_user = threads.find({'author': username})
     comments_by_user = comments.find({'author': username})
+    user_info = users.find_one({'name': username})
+    print(type(user_info))
+    print('**&&&&***&&**&*&')
     return render_template('user.html', threads=threads_by_user,
                            comments=comments_by_user, username=username,
-                           session=session)
+                           session=session, user_info=user_info)
+
+@app.route('/change_profile', methods=['GET', 'POST'])
+def change_profile():
+    if request.method == 'GET':
+        return "you shouldn't be here"
+    if not session:
+        return render_template('index.html')
+    new_link = request.form['new_link']
+    user_info = {'name': session['username']}
+    new_address = {"$set": {"profile_image": new_link}}
+    users.update_one(user_info, new_address)
+    return redirect('/user/' + session['username'])
+
+
 
 @app.route('/thread/<thread_number>', methods=['GET', 'POST'])
 def thread(thread_number):

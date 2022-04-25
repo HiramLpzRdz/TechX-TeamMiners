@@ -38,7 +38,8 @@
     <div class="main">
         <a href="#" class="material-icons-outlined menu"> menu </a>
         <div class="post">
-            <h4>posted by {{thread_info['author']}} on {{thread_info['date_time']}}</h4>
+            <h4>posted by <a href="/user/{{thread_info['author']}}">{{thread_info['author']}}
+                </a> on {{thread_info['date_time']}}</h4>
             <h1><b>{{thread_info['title']}}</b></h1>
             {% if 'tags' in thread_info %}
             <div class="tags">
@@ -64,7 +65,9 @@
             {% for comment in comments%}
             <div class="individual_comment">
                 <div class = "comment_source">
-                    <b>{{comment['author']}} on {{comment['date_time']}}</b><br>
+                    <b>
+                        <a href="/user/{{comment['author']}}">{{comment['author']}}</a>
+                        on {{comment['date_time']}}</b><br>
                 </div>
                 <div class="comment_content">
                 {{comment['text']}}

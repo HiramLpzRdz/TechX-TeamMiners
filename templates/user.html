@@ -42,13 +42,13 @@
         <div class="user_info">
             {{username}}
         </div>
-            <img src="https://png.pngitem.com/pimgs/s/22-223968_default-profile-picture-circle-hd-png-download.png" alt="Thom Yorke" class="profile_picture">
+            <img src="{{user_info['profile_image']}}" alt="user profile pic" class="profile_picture">
             {% if session['username'] == username %}
             <div class="cpp_text">
             Change Profile Picture
             </div>
             <form action ='/change_profile', method = 'POST'>
-            <input type="text" class="new_link" placeholder="img url"><br>
+            <input type="text" name="new_link" class="new_link" placeholder="img url"><br>
                 <input type="submit" value="Submit">
             </form>
             {% endif %}
