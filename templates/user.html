@@ -30,7 +30,7 @@
                 </a>
             </li>
             <li class="item">
-                <a href="">
+                <a href="{{ url_for('logout') }}">
                     <i class="material-icons-outlined">logout</i>
                 </a>
             </li>
@@ -43,7 +43,7 @@
             {{username}}
         </div>
             <img src="{{user_info['profile_image']}}" alt="user profile pic" class="profile_picture">
-            {% if session['username'] == username %}
+            {% if cookie.get('username') == username %}
             <div class="cpp_text">
             Change Profile Picture
             </div>
