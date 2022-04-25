@@ -8,11 +8,6 @@ body {
     background-color: rgb(215, 222, 222);
     font-family: 'Inter', sans-serif;
 }
-.card-container {
-    width: 90%;
-    display: flex;
-    padding: 3rem;
-}
 
 .card {
     border-radius:15px;
@@ -27,7 +22,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    transition: 0.2s;
+    transition: 0.4s;
 
 }
 
