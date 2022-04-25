@@ -25,7 +25,7 @@ from bson import ObjectId
 from datetime import datetime
 import thread
 import bcrypt
-
+from model import get_preview
 # -- Initialization section --
 app = Flask(__name__)
 
@@ -187,4 +187,4 @@ def create_thread():
 @app.route('/main_feed')
 def main_feed():
     threads_info = threads.find({})
-    return render_template('main_feed.html', threads = threads_info)
+    return render_template('main_feed.html', threads = threads_info, get_preview=get_preview)

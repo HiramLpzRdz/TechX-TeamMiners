@@ -31,6 +31,14 @@ body {
     
 }
 
+.body {
+    width: 95%;
+    margin-left:3%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    font-size: 1.9em;
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -58,16 +66,12 @@ body {
 
 .card .article-header {
     margin-bottom: auto;
-    color: inherit;
-    text-decoration: inherit;
 }
 
 .card .author {
     margin-top: 3rem;
     display: grid;
     grid-template-columns: 75px 1fr;
-    color: inherit;
-    text-decoration: inherit;
 }
 
 .author .info .caption {
