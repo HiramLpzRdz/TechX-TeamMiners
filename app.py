@@ -135,8 +135,6 @@ def user(username):
 def change_profile():
     if request.method == 'GET':
         return "you shouldn't be here"
-    if not session:
-        return render_template('index.html')
     new_link = request.form['new_link']
     user_info = {'name': session['username']}
     new_address = {"$set": {"profile_image": new_link}}
@@ -173,8 +171,6 @@ def new_thread():
     renders template to create new thread
     :return renders new_thread.html
     '''
-    if not session:
-        return render_template('login.html')
     return render_template('new_thread.html')
 
 @app.route('/create_thread', methods=['GET', 'POST'])
@@ -187,8 +183,6 @@ def create_thread():
     '''
     if request.method == 'GET':
         return 'you should not be here'
-    if not session:
-        return render_template('login.html')
     if request.method == 'POST':
         thread_info = thread_checker.check_new_thread(
             request.form['title'],
