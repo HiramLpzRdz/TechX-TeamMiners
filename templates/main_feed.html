@@ -42,7 +42,7 @@
                     <header class="article-header">
                         <div>
                             <div class="category-title">
-                                
+                                <div>{{ thread['author'] }}</div>
                                 <span class="date">{{ thread['date_time'] }}</span>
                             </div>
                         </div>
@@ -53,25 +53,26 @@
                     <div class ="body">
                         {{ get_preview(thread['text']) }}
                     </div>
+                    
                     <div class="author">
-                        <div class="profile"></div>
-                        <div class="info">
-                            <div class="caption">Author</div>
-                            <div class="name">{{ thread['author'] }}</div>
-                        </div>
                         <a href="/thread/{{ thread._id }}">
                             <span class="material-icons-outlined">
                                 fullscreen
                             </span>
                         </a>
                     </div>
-                    {% if 'tags' in thread_info %}
-                        {% for tag in thread['tags'] %}
-                            <div class="tags">
-                                <div>{{ tag }}</div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
+                    <form action="add_like/{{ thread._id }}" method="POST">
+                        <div class="likes">
+                            <button name="like", value>
+                                <span class="material-icons-outlined">
+                                    favorite_border
+                                </span>
+                                <span>
+                                    {{ thread['likes'] }}
+                                </span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             {% endfor %}
     </div>

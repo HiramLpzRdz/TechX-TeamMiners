@@ -55,6 +55,7 @@ class Thread:
         thread_info['text'] = text
         thread_info['author'] = author
         thread_info['date_time'] = datetime.now().strftime("%m/%d/%Y")
+        thread_info['likes'] = 0
         return thread_info
 
     def create_comment(self, author, text, thread_id, image_link):

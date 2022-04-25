@@ -16,13 +16,14 @@ body {
     margin-top: 3%;
     padding-bottom: 12px;
     padding-top: 12px;
-    width: 700px;
+    width: 750px;
     height: 350px;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
     transition: 0.4s;
+    overflow: auto;
 
 }
 
@@ -42,9 +43,7 @@ body {
 .tags {
     display: flex;
     flex-wrap: wrap;
-    margin: 1rem 0 1rem;
-    color: inherit;
-    text-decoration: inherit;
+    font-size: 10px;
 }
 
 
@@ -74,14 +73,24 @@ body {
     grid-template-columns: 75px 1fr;
 }
 
-.author .info .caption {
+.author {
     color: black;
-    color: inherit;
-    text-decoration: inherit;
+    float: left;
 }
 
 
 .card:hover {
-    transform: translateY(-1rem);
     transform: scale(1.1);
+}
+
+.likes{
+    float: right;
+    padding: 3px;
+}
+
+button {
+    padding: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
 }
